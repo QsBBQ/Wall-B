@@ -146,3 +146,39 @@ post('/walls') do
     # fix any errors.
   end
 end
+
+get '/walls/:wall_id' do
+  id = params[:wall_id]
+  @wall = Wall.get(id)
+  erb :show_wall
+end
+
+get '/walls/:wall_id/edit' do
+  id = params[:wall_id]
+  @wall = Wall.get(id)
+  erb :edit_wall
+end
+
+post '/walls/:wall_id/edit' do
+  id = params[:wall_id]
+  wall = Wall.get(id)
+  if params[:author] == wall.created_by
+    wall.title = params[:title]
+    wall.description = params[:description]
+    wall.save
+  else
+    redirect "/walls/#{id}/edit"
+  end
+  redirect "/"
+end
+
+post '/walls/:wall_id/destroy' do
+  id = params[:wall_id]
+  wall = Wall.get(id)
+  if params[:author] == wall.created_by
+    wall.destroy
+  else
+    redirect "/walls/#{id}"
+  end
+  redirect "/"
+end
