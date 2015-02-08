@@ -182,3 +182,16 @@ post '/walls/:wall_id/destroy' do
   end
   redirect "/"
 end
+
+post '/walls/:wall_id/likes' do
+  id = params[:wall_id]
+  wall = Wall.get(id)
+  if wall.likes.nil?
+    wall.likes = 1
+    wall.save
+  else
+    wall.likes = wall.likes + 1
+    wall.save
+  end
+  redirect "/"
+end
