@@ -1,0 +1,13 @@
+<h2><%= @wall.title %>, by <%= @wall.created_by %></h2>
+<p class="description"><%= @wall.description %></p>
+
+<form action="/walls/<%= @wall.id %>/edit" method= "get">
+  <button type="submit" class="btn btn-primary" name="Edit"> edit</button>
+</form>
+
+
+<form action="/walls/<%= @wall.id %>/destroy" method= "post">
+  <strong>Name authorization</strong> <br />
+  <input type="text" name="author"/>
+  <button type="submit" class="btn btn-danger" name="delete"> Delete</button>
+</form>
