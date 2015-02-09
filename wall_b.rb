@@ -219,3 +219,18 @@ post '/walls/:wall_id/likes' do
   end
   redirect "/"
 end
+
+post '/walls/:comment_id/comment_likes' do
+  #hmm
+  comment_id = params[:comment_id]
+  comment = Comment.get(comment_id)
+  wall_id = comment.wall_id
+  if comment.likes.nil?
+    comment.likes = 1
+    comment.save
+  else
+    comment.likes = comment.likes + 1
+    comment.save
+  end
+  redirect "/walls/#{wall_id}"
+end

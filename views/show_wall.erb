@@ -26,6 +26,11 @@
   <p> Name: <%= comment.created_by %></p>
   <p><strong>Comment:</strong></p>
   <p><%= comment.body %></p>
+  <form action="/walls/<%= comment.id %>/comment_likes" method= "post">
+      <button type="submit" class="btn btn-primary" name="likes"> Likes </button>
+    </form>
+    <aside><strong><%= comment.likes %> Likes</strong></aside>
+    <p>----------------------------------------</p>
 <% end %>
 
 
