@@ -78,8 +78,20 @@ class Wall
 
   property :created_at, DateTime
   # This will let us record exacty when a wall is created.
+
+  has n, :comments
 end
 
+class Comment
+  include DataMapper::Resource
+  property :id,         Serial
+  property :created_by, String
+  property :likes,      Integer
+  property :body,       Text
+  property :created_at, DateTime
+
+  belongs_to :wall
+end
 
 # PHEW! That's a lot of new ideas! But don't worry; you'll get it! Understanding
 # programming takes practice!
@@ -150,7 +162,19 @@ end
 get '/walls/:wall_id' do
   id = params[:wall_id]
   @wall = Wall.get(id)
+  @comments = @wall.comments.all(:order => [ :created_at.desc ])
   erb :show_wall
+end
+
+post '/walls/:wall_id/new_comment' do
+  wall_id = params[:wall_id]
+  wall = Wall.get(wall_id)
+  comment = wall.comments.new({
+                                         :created_by => params[:created_by],
+                                         :body => params[:body]
+                                        })
+  wall.save
+  redirect "/walls/#{wall_id}"
 end
 
 get '/walls/:wall_id/edit' do
