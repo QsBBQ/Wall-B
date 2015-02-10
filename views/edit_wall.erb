@@ -1,0 +1,11 @@
+<form action="/walls/<%= @wall.id %>/edit" method= "post">
+  <strong>Name authorization</strong> <br />
+  <input type="text" name="author"/> <br />
+  <strong>Title</strong>
+  <input type="hidden"/><br />
+  <textarea name ="title"><%= @wall.title %></textarea><br />
+  <strong>Description</strong>
+  <input type="hidden"/><br />
+  <textarea name ="description"><%= @wall.description %></textarea><br />
+  <button type="submit" class="btn btn-primary" name="edit"> Update</button>
+</form>
