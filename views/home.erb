@@ -1,6 +1,11 @@
 <ul>
 <% walls.each() do |wall| %>
-  <li><a href="/walls/<%= wall.id %>"> <%= wall.title %></a></li>
+  <li><a href="/walls/<%= wall.id %>"> <%= wall.title %></a>
+    <form action="/walls/<%= wall.id %>/likes" method= "post">
+      <button type="submit" class="btn btn-primary" name="likes"> Likes </button>
+    </form>
+    <aside><strong><%= wall.likes %> Likes</strong></aside>
+  </li>
 <% end %>
 </ul>
 
